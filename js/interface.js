@@ -23,6 +23,7 @@ class Interface {
   init() {
     this._initCollapsible();
     this._closeSectionsOnMobile();
+    this._initMobileLayout();
     this._initClearButton();
     this._initExportButtons();
     this._initTextureToggle();
@@ -61,6 +62,34 @@ class Interface {
       body.classList.add('hidden');
       arrow.classList.remove('open');
     });
+  }
+
+  _initMobileLayout() {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 700px)').matches;
+    const interfaceElement = document.getElementById('interface');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+
+    if ((!isTouchDevice && !isSmallScreen) || !interfaceElement || !canvasWrapper) {
+      return;
+    }
+
+    const updateLayout = () => {
+      const interfaceHeight = interfaceElement.getBoundingClientRect().height;
+      canvasWrapper.style.setProperty('--mobile-interface-space', `${interfaceHeight + 16}px`);
+
+      if (typeof myCanvas !== 'undefined' && myCanvas) {
+        updateCanvasAreaSize();
+        resizeCanvas(canvasAreaWidth, canvasAreaHeight);
+      }
+    };
+
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(updateLayout).observe(interfaceElement);
+    }
   }
 
   // ––– Clear canvas (Button) –––

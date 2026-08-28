@@ -338,7 +338,7 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
 @media (max-width: 700px), (pointer: coarse) {
   #canvas-wrapper {
     right: 0;
-    bottom: calc(45% + 16px);
+    bottom: var(--mobile-interface-space, 0px);
   }
 
   #interface,
@@ -348,7 +348,7 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
     bottom: 8px;
     left: 8px;
     width: auto;
-    max-height: 45%;
+    max-height: calc(100% - 16px);
     padding: 6px 12px;
   }
 
