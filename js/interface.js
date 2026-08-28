@@ -28,6 +28,7 @@ class Interface {
     this._initLetGrowToggle();
     this._initFlowerSizeSlider();
     this._initStrokeWeightSlider();
+    this._initRefreshButton();
   }
 
   // ––– Collapsible Sections (Button) –––
@@ -48,6 +49,12 @@ class Interface {
   _initClearButton() {
     document.getElementById('clearBtn').addEventListener('click', function () {
       clearCanvas(); // Erase all the drawn stems and flowers
+    });
+  }
+
+  _initRefreshButton() {
+    document.getElementById('refreshBtn').addEventListener('click', function () {
+      window.location.reload(); // Redraw the canvas from the current state
     });
   }
 
