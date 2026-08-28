@@ -405,6 +405,20 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   input[type="range"].flower-size-slider,
   input[type="range"].stroke-weight-slider {
     height: 26px;
+    touch-action: pan-x;
+  }
+
+  input[type="range"].stroke-weight-slider::-webkit-slider-thumb {
+    width: 22px;
+    height: 26px;
+    margin-top: -12px;
+    background: linear-gradient(to right, transparent 10px, #ffffff 10px, #ffffff 12px, transparent 12px);
+  }
+
+  input[type="range"].stroke-weight-slider::-moz-range-thumb {
+    width: 22px;
+    height: 26px;
+    background: linear-gradient(to right, transparent 10px, #ffffff 10px, #ffffff 12px, transparent 12px);
   }
 
   #s-download .ctrl-row {
