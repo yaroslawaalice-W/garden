@@ -247,15 +247,27 @@ function setBackgroundVideo(videoSource, shouldRevokeObjectUrl) {
 
   // Create a new video and tell it what to do when it's ready.
   // "createVideo" loads a video file and prepares it for playback.
-  backgroundVideo = createVideo(videoSource, () => {
-    backgroundVideo.elt.setAttribute('playsinline', '');
-    backgroundVideo.elt.setAttribute('webkit-playsinline', '');
-    backgroundVideo.elt.muted = true;
-    backgroundVideo.elt.preload = 'auto';
-    // When the video is ready, make it play on repeat (loop).
+  backgroundVideo = createVideo(videoSource);
+  backgroundVideo.elt.setAttribute('playsinline', '');
+  backgroundVideo.elt.setAttribute('webkit-playsinline', '');
+  backgroundVideo.elt.playsInline = true;
+  backgroundVideo.elt.muted = true;
+  backgroundVideo.elt.defaultMuted = true;
+  backgroundVideo.elt.autoplay = true;
+  backgroundVideo.elt.preload = 'auto';
+
+  let videoPlaybackStarted = false;
+  const startBackgroundVideo = () => {
+    if (videoPlaybackStarted) {
+      return;
+    }
+    videoPlaybackStarted = true;
     backgroundVideo.loop();
     backgroundVideo.elt.play().catch(() => {});
-  });
+  };
+  backgroundVideo.elt.addEventListener('loadedmetadata', startBackgroundVideo, { once: true });
+  backgroundVideo.elt.addEventListener('canplay', startBackgroundVideo, { once: true });
+  backgroundVideo.elt.load();
   // Hide the default video player controls (we're drawing on it, not showing it normally).
   backgroundVideo.hide();
   // Turn off the sound (set volume to 0).

@@ -217,6 +217,12 @@ class Interface {
       traceStrokeWeight = parseInt(slider.value, 10); // Update the global used by sketch.js
       val.textContent = slider.value + 'px';
     });
+
+    ['touchstart', 'touchmove', 'touchend'].forEach(function (eventName) {
+      slider.addEventListener(eventName, function (event) {
+        event.stopPropagation();
+      }, { passive: true });
+    });
   }
 
 }
