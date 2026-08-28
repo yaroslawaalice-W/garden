@@ -31,6 +31,7 @@ class Interface {
     this._initFlowerSizeSlider();
     this._initStrokeWeightSlider();
     this._initRefreshButton();
+    this._initMobileActions();
   }
 
   // ––– Collapsible Sections (Button) –––
@@ -101,7 +102,41 @@ class Interface {
 
   _initRefreshButton() {
     document.getElementById('refreshBtn').addEventListener('click', function () {
-      window.location.reload(); // Redraw the canvas from the current state
+      clearCanvas();
+    });
+  }
+
+  _initMobileActions() {
+    const refreshButton = document.getElementById('refreshMobileBtn');
+    const importButton = document.getElementById('importMobileBtn');
+    const importInput = document.getElementById('mobileImportInput');
+
+    refreshButton.addEventListener('click', function () {
+      clearCanvas();
+    });
+
+    importButton.addEventListener('click', function () {
+      importInput.click();
+    });
+
+    importInput.addEventListener('change', function () {
+      const importedFile = importInput.files[0];
+      if (!importedFile) {
+        return;
+      }
+
+      if (importedFile.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => setBackgroundImage(reader.result);
+        reader.readAsDataURL(importedFile);
+      }
+
+      if (importedFile.type.startsWith('video/')) {
+        const importedVideoUrl = URL.createObjectURL(importedFile);
+        setBackgroundVideo(importedVideoUrl, true);
+      }
+
+      importInput.value = '';
     });
   }
 

@@ -179,6 +179,14 @@ body {
   color: #ff00c8;
 }
 
+.mobile-actions {
+  display: none;
+}
+
+#mobileImportInput {
+  display: none;
+}
+
 #s-download .btn-outline {
   width: 100%;
 }
@@ -350,6 +358,17 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
     width: auto;
     max-height: calc(100% - 16px);
     padding: 6px 12px;
+  }
+
+  .garden-section {
+    display: none;
+  }
+
+  .mobile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    min-height: 44px;
   }
 
   .section-header {

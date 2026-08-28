@@ -37,7 +37,7 @@
   <div id="interface">
 
     <!-- ── CANVAS ──────────────────────────────── -->
-    <div class="section">
+    <div class="section garden-section">
       <div class="section-header" data-target="s-canvas">
         <span>Garden</span><span class="arrow open"></span>
       </div>
@@ -46,9 +46,15 @@
         <div class="ctrl-row" style="margin-top: 4px;">
           <span class="lbl"></span>
           <button class="btn-outline" id="clearBtn">start over</button>
-          <button class="btn-icon" id="refreshBtn" type="button" aria-label="Start over" title="Start over">↻</button>
+          <button class="btn-icon" id="refreshBtn" type="button" aria-label="Clear canvas" title="Clear canvas">↻</button>
         </div>
       </div>
+    </div>
+
+    <div class="mobile-actions" aria-label="Garden actions">
+      <button class="btn-icon" id="refreshMobileBtn" type="button" aria-label="Clear canvas" title="Clear canvas">↻</button>
+      <button class="btn-icon" id="importMobileBtn" type="button" aria-label="Import photo or video" title="Import photo or video">↥</button>
+      <input id="mobileImportInput" type="file" accept="image/*,video/*">
     </div>
 
     <!-- ── FLOWERS ─────────────────────────────── -->
