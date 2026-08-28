@@ -364,6 +364,10 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
     display: none;
   }
 
+  #interface.mobile-interface .garden-section {
+    display: none;
+  }
+
   .mobile-actions {
     display: flex;
     justify-content: flex-end;

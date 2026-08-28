@@ -57,7 +57,7 @@ class Interface {
 
     document.getElementById('interface').classList.add('mobile-interface');
 
-    document.querySelectorAll('.section').forEach(function (section) {
+    document.querySelectorAll('.section:not(.garden-section)').forEach(function (section) {
       var body = section.querySelector('.section-body');
       var arrow = section.querySelector('.arrow');
       body.classList.add('hidden');
