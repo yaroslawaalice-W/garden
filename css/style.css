@@ -371,7 +371,7 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   .mobile-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 2px;
+    gap: 12px;
     min-height: 26px;
   }
 
@@ -393,8 +393,9 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   }
 
   .btn-icon {
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
+    font-size: 24px;
   }
 
   .toggle-lbl {

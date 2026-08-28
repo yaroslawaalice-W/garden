@@ -47,6 +47,7 @@
           <span class="lbl"></span>
           <button class="btn-outline" id="clearBtn">start over</button>
           <button class="btn-icon" id="refreshBtn" type="button" aria-label="Clear canvas" title="Clear canvas">↻</button>
+          <button class="btn-icon" id="importBtn" type="button" aria-label="Import photo or video" title="Import photo or video">↥</button>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@
     <div class="mobile-actions" aria-label="Garden actions">
       <button class="btn-icon" id="refreshMobileBtn" type="button" aria-label="Clear canvas" title="Clear canvas">↻</button>
       <button class="btn-icon" id="importMobileBtn" type="button" aria-label="Import photo or video" title="Import photo or video">↥</button>
-      <input id="mobileImportInput" type="file" accept="image/*,video/*" tabindex="-1" aria-hidden="true">
+      <input id="mobileImportInput" type="file" accept="image/*,video/quicktime,video/mp4,video/webm" tabindex="-1" aria-hidden="true">
     </div>
 
     <!-- ── FLOWERS ─────────────────────────────── -->
@@ -84,7 +85,7 @@
         </div>
         <div class="ctrl-row slider-row">
           <span class="lbl">Stem weight</span>
-          <input type="range" id="strokeWeightSlider" class="stroke-weight-slider" min="8" max="30" step="1">
+          <input type="range" id="strokeWeightSlider" class="stroke-weight-slider" min="2" max="30" step="1">
           <span class="val" id="strokeWeightVal">8</span>
         </div>
       </div>

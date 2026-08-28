@@ -109,15 +109,19 @@ class Interface {
   _initMobileActions() {
     const refreshButton = document.getElementById('refreshMobileBtn');
     const importButton = document.getElementById('importMobileBtn');
+    const desktopImportButton = document.getElementById('importBtn');
     const importInput = document.getElementById('mobileImportInput');
 
     refreshButton.addEventListener('click', function () {
       clearCanvas();
     });
 
-    importButton.addEventListener('click', function () {
+    const openImportPicker = function () {
       importInput.click();
-    });
+    };
+
+    importButton.addEventListener('click', openImportPicker);
+    desktopImportButton.addEventListener('click', openImportPicker);
 
     importInput.addEventListener('change', function () {
       const importedFile = importInput.files[0];

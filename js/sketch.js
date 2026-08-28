@@ -10,7 +10,7 @@ const textureImagePaths = ['assets/texture1.jpg', 'assets/texture2.jpg', 'assets
 // Visual settings for the line and flower.
 // These control how the lines and flowers look on screen.
 const defaultTraceStrokeWeight = 8; // The starting thickness of drawn lines (in pixels).
-const minStrokeWeight = 8; // The minimum line thickness (in pixels).
+const minStrokeWeight = 2; // The minimum line thickness (in pixels).
 const maxStrokeWeight = 30; // The maximum line thickness (in pixels).
 const defaultFlowerSize = 50; // The starting size of each flower (in pixels).
 const flowerNoiseSpeed = 0.01; // How fast flowers move around (smaller number = slower movement).
@@ -248,8 +248,13 @@ function setBackgroundVideo(videoSource, shouldRevokeObjectUrl) {
   // Create a new video and tell it what to do when it's ready.
   // "createVideo" loads a video file and prepares it for playback.
   backgroundVideo = createVideo(videoSource, () => {
+    backgroundVideo.elt.setAttribute('playsinline', '');
+    backgroundVideo.elt.setAttribute('webkit-playsinline', '');
+    backgroundVideo.elt.muted = true;
+    backgroundVideo.elt.preload = 'auto';
     // When the video is ready, make it play on repeat (loop).
     backgroundVideo.loop();
+    backgroundVideo.elt.play().catch(() => {});
   });
   // Hide the default video player controls (we're drawing on it, not showing it normally).
   backgroundVideo.hide();
@@ -313,10 +318,12 @@ function draw() {
   // If true, draw a new line segment.
   // A "conditional" is an "if" statement that checks if something is true or false.
   // Also stop extending the line while the cursor has moved over the interface panel.
-  if (isTracing && (mouseIsPressed || isTouching) && !isPointOverInterface(inputX, inputY)) {
+  const currentInputX = isTouching ? inputX : mouseX;
+  const currentInputY = isTouching ? inputY : mouseY;
+  if (isTracing && (mouseIsPressed || isTouching) && !isPointOverInterface(currentInputX, currentInputY)) {
     // Get the color from any drawable (stem/flower) at the mouse position.
     // If nothing is drawn there, sample from the background image.
-    const sampledColor = getColorAtPosition(inputX, inputY);
+    const sampledColor = getColorAtPosition(currentInputX, currentInputY);
 
     // Flip the color so it's the opposite (light becomes dark, dark becomes light).
     // This makes the drawn line stand out against the background.
@@ -330,16 +337,16 @@ function draw() {
 
     // Draw a line from where the mouse was to where it is now.
     // This creates smooth curves as the user drags the mouse.
-    drawingLayer.line(previousX, previousY, inputX, inputY);
+    drawingLayer.line(previousX, previousY, currentInputX, currentInputY);
 
     // Remember the current mouse position for the next line segment.
     // Next frame, the line will start from here.
-    previousX = inputX; // Save the current X position.
-    previousY = inputY; // Save the current Y position.
-    lastTraceX = inputX; // Also save it as the last traced position.
-    lastTraceY = inputY; // This is used to place the flower when the user stops drawing.
+    previousX = currentInputX; // Save the current X position.
+    previousY = currentInputY; // Save the current Y position.
+    lastTraceX = currentInputX; // Also save it as the last traced position.
+    lastTraceY = currentInputY; // This is used to place the flower when the user stops drawing.
     lastTraceColor = invertedSampledColor; // Save the color to use for the flower later.
-    currentTracePoints.push({ x: inputX, y: inputY });
+    currentTracePoints.push({ x: currentInputX, y: currentInputY });
   }
 }
 
