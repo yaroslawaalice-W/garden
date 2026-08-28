@@ -352,12 +352,12 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   #interface,
   #interface.mobile-interface {
     top: auto;
-    right: 8px;
-    bottom: 8px;
-    left: 8px;
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
     width: auto;
     max-height: calc(100% - 16px);
-    padding: 6px 12px;
+    padding: 3px 8px;
   }
 
   .garden-section {
@@ -371,39 +371,39 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   .mobile-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 4px;
-    min-height: 32px;
+    gap: 2px;
+    min-height: 26px;
   }
 
   .section-header {
-    min-height: 32px;
-    margin-bottom: 4px;
-    padding-top: 2px;
+    min-height: 26px;
+    margin-bottom: 2px;
+    padding-top: 0;
   }
 
   .ctrl-row {
-    min-height: 32px;
-    gap: 4px;
-    margin-bottom: 2px;
+    min-height: 26px;
+    gap: 2px;
+    margin-bottom: 1px;
   }
 
   .btn-outline {
-    min-height: 32px;
-    padding: 4px 8px;
+    min-height: 26px;
+    padding: 3px 6px;
   }
 
   .btn-icon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
 
   .toggle-lbl {
-    padding: 4px 2px;
+    padding: 2px 1px;
   }
 
   input[type="range"].flower-size-slider,
   input[type="range"].stroke-weight-slider {
-    height: 32px;
+    height: 26px;
   }
 
   #s-download .ctrl-row {
