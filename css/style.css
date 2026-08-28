@@ -335,7 +335,7 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   cursor: pointer;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 700px), (pointer: coarse) {
   #canvas-wrapper {
     right: 0;
   }

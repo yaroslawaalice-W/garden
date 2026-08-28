@@ -47,7 +47,9 @@ class Interface {
   }
 
   _closeSectionsOnMobile() {
-    if (!window.matchMedia('(max-width: 700px)').matches) {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 700px)').matches;
+    if (!isTouchDevice && !isSmallScreen) {
       return;
     }
 

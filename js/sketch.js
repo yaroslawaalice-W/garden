@@ -609,7 +609,7 @@ function touchStarted() {
   const firstTouch = touches[0];
 
   if (!firstTouch || isPointOverInterface(firstTouch.x, firstTouch.y)) {
-    return false;
+    return true;
   }
 
   isTouching = true;
@@ -632,7 +632,7 @@ function touchMoved() {
   const firstTouch = touches[0];
 
   if (!firstTouch || !isTouching) {
-    return false;
+    return true;
   }
 
   inputX = firstTouch.x;
@@ -642,6 +642,10 @@ function touchMoved() {
 }
 
 function touchEnded() {
+  if (!isTouching) {
+    return true;
+  }
+
   isTouching = false;
   mouseReleased();
 
