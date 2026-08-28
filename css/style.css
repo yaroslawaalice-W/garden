@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* Remove default spacing and make the page span the full viewport. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  /* Prevent browser scrollbars while rendering a full-screen canvas. */
+  overflow: hidden;
+}
+
+/* Keep the canvas clear of the interface panel on the right. */
+#canvas-wrapper {
+  position: fixed;
+  top: 0;
+  right: 312px;
+  bottom: 0;
+  left: 0;
+}
+
+/* Remove inline spacing behavior from canvas elements. */
+canvas {
+  display: block;
+}
+
+/* Body text and interface look. */
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #ffffff;
+  font-size: 10px;
+  background: #0e0e0e;
+}
+
+/* Floating control panel, docked to the right edge of the screen. */
+#interface {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+  background: #000000;
+  border: 0.1px solid #808080;
+  padding: 8px 14px;
+  z-index: 10;
+}
+
+/* Each collapsible group of controls (Canvas, Flowers, ...). */
+.section + .section {
+  position: relative;
+}
+
+.section + .section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: #201e1e;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.section-header .arrow {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+}
+
+.section-header .arrow.open {
+  transform: rotate(45deg);
+}
+
+.section-body {
+  padding-bottom: 12px;
+}
+
+.section-body.hidden {
+  display: none;
+}
+
+.section-description {
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+/* A single row inside a section: a label plus its control(s). */
+.ctrl-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ctrl-row .lbl {
+  flex: 0 0 auto;
+  width: 79px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.toggle-row,
+.toggle-row span,
+.ctrl-row .val {
+  font-size: 12px;
+}
+
+.ctrl-row.slider-row input[type="range"] {
+  flex: 0 0 auto;
+  width: 125px;
+}
+
+.ctrl-row .val {
+  flex: 0 0 auto;
+  min-width: 32px;
+  text-align: right;
+  font-size: 12px;
+}
+
+.ctrl-row.slider-row .lbl,
+.ctrl-row.slider-row .val {
+  font-size: 10px;
+}
+
+.toggle-row .lbl {
+  font-size: 10px;
+}
+
+/* Outline button, matching the look of the original clear/texture buttons. */
+.btn-outline {
+  width: auto;
+  padding: 6px 16px;
+  border: 1px solid #808080;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  font-family: 'IBM Plex Mono', monospace;
+  cursor: pointer;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-icon:hover {
+  color: #ff00c8;
+}
+
+#s-download .btn-outline {
+  flex: 1 1 0;
+}
+
+#downloadImageBtn {
+  margin-left: 8px;
+}
+
+.btn-outline:hover {
+  background: #ff00c8;
+  color: #000000;
+}
+
+.btn-recording {
+  background: rgba(46, 204, 113, 0.35);
+  border-color: #808080;
+  color: #ffffff;
+}
+
+.btn-recording:hover {
+  background: #ff00c8;
+  color: #000000;
+}
+
+/* Toggle switch (used for the texture-fill option). */
+.toggle-row {
+  justify-content: flex-start;
+}
+
+.toggle-lbl {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle-lbl input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  display: block;
+  width: 36px;
+  height: 20px;
+  border: 1px solid #808080;
+  border-radius: 10px;
+  position: relative;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.toggle-lbl input:checked+.toggle-track .toggle-thumb {
+  transform: translateX(16px);
+  background: #ff00c8;
+}
+
+input[type="range"].flower-size-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].flower-size-slider:focus {
+  outline: none;
+}
+
+input[type="range"].flower-size-slider::-webkit-slider-runnable-track {
+  height: 1px;
+  background: linear-gradient(to right, #ff00c8 0%, #ff00c8 21%, #ff00c8 21%, #ff00c8 22%, #808080 22%, #808080 100%);
+  border-radius: 3px;
+}
+
+input[type="range"].flower-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -10px;
+  border: 0;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23ff00c8'%3E%3Ccircle cx='50' cy='18' r='16'/%3E%3Ccircle cx='75' cy='35' r='16'/%3E%3Ccircle cx='66' cy='65' r='16'/%3E%3Ccircle cx='34' cy='65' r='16'/%3E%3Ccircle cx='25' cy='35' r='16'/%3E%3C/g%3E%3Ccircle cx='50' cy='44' r='14' fill='%23ffffff'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+input[type="range"].flower-size-slider::-moz-range-track {
+  height: 1px;
+  background: linear-gradient(to right, #808080 0%, #808080 21%, #ff00c8 21%, #ff00c8 22%, #808080 22%, #808080 100%);
+  border-radius: 3px;
+}
+
+input[type="range"].flower-size-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23ff00c8'%3E%3Ccircle cx='50' cy='18' r='16'/%3E%3Ccircle cx='75' cy='35' r='16'/%3E%3Ccircle cx='66' cy='65' r='16'/%3E%3Ccircle cx='34' cy='65' r='16'/%3E%3Ccircle cx='25' cy='35' r='16'/%3E%3C/g%3E%3Ccircle cx='50' cy='44' r='14' fill='%23ffffff'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Stroke weight slider with vertical line pointer */
+input[type="range"].stroke-weight-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].stroke-weight-slider:focus {
+  outline: none;
+}
+
+input[type="range"].stroke-weight-slider::-webkit-slider-runnable-track {
+  height: 1px;
+  background: linear-gradient(to right, #ffcc00 0%, #ffcc00 1%, #808080 1%, #808080 100%);
+  border-radius: 3px;
+}
+
+input[type="range"].stroke-weight-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1px;
+  height: 20px;
+  margin-top: -9px;
+  border: 0;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type="range"].stroke-weight-slider::-moz-range-track {
+  height: 1px;
+  background: linear-gradient(to right, #ffcc00 0%, #ffcc00 1%, #ffffff 1%, #ffffff 100%);
+  border-radius: 3px;
+}
+
+input[type="range"].stroke-weight-slider::-moz-range-thumb {
+  width: 1px;
+  height: 20px;
+  border: 0;
+  background: #ffffff;
+  cursor: pointer;
+}

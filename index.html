@@ -1,0 +1,103 @@
+<!--
+    This HTML file loads styles, libraries, and the project files.
+    The canvas itself is created dynamically in js/sketch.js.
+  -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic document metadata and responsive behavior. -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Browser tab title. -->
+  <title>Coding Basics – Conditionals</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- External libraries -->
+  <script src="libraries/p5.js"></script>
+
+  <!-- Project files -->
+  <script src="js/sketch.js"></script>
+  <script src="js/interface.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Canvas wrapper: the p5.js canvas is injected here at runtime. -->
+  <div id="canvas-wrapper"></div>
+
+  <!-- Interface panel: floats on the right side, on top of the canvas. -->
+  <div id="interface">
+
+    <!-- ── CANVAS ──────────────────────────────── -->
+    <div class="section">
+      <div class="section-header" data-target="s-canvas">
+        <span>Garden</span><span class="arrow open"></span>
+      </div>
+      <div class="section-body" id="s-canvas">
+        <p class="section-description">Drag and drop an image or video to turn it into your garden.</p>
+        <div class="ctrl-row" style="margin-top: 4px;">
+          <span class="lbl"></span>
+          <button class="btn-icon" id="clearBtn" type="button" aria-label="Start over" title="Start over">↻</button>
+          <button class="btn-outline" id="clearButton">clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FLOWERS ─────────────────────────────── -->
+    <div class="section">
+      <div class="section-header" data-target="s-flowers">
+        <span>Flowers</span><span class="arrow open"></span>
+      </div>
+      <div class="section-body" id="s-flowers">
+        <div class="ctrl-row toggle-row">
+          <span class="lbl" id="textureStatus">Texture off</span>
+          <label class="toggle-lbl">
+            <input type="checkbox" id="textureToggle">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+        <div class="ctrl-row toggle-row">
+          <span class="lbl" id="letGrowStatus">Let grow off</span>
+          <label class="toggle-lbl">
+            <input type="checkbox" id="letGrowToggle">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+        <div class="ctrl-row slider-row">
+          <span class="lbl">Flower size</span>
+          <input type="range" id="flowerSizeSlider" class="flower-size-slider" min="15" max="180" step="1">
+          <span class="val" id="flowerSizeVal">50</span>
+        </div>
+        <div class="ctrl-row slider-row">
+          <span class="lbl">Stem weight</span>
+          <input type="range" id="strokeWeightSlider" class="stroke-weight-slider" min="8" max="30" step="1">
+          <span class="val" id="strokeWeightVal">8</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DOWNLOAD ────────────────────────────── -->
+    <div class="section">
+      <div class="section-header" data-target="s-download">
+        <span>Download</span><span class="arrow open"></span>
+      </div>
+      <div class="section-body" id="s-download">
+        <div class="ctrl-row" style="margin-top: 4px;">
+          <button class="btn-outline" id="downloadFlowersBtn">garden</button>
+          <button class="btn-outline" id="downloadImageBtn">image</button>
+          <button class="btn-outline" id="downloadVideoBtn">record</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
