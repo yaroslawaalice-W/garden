@@ -66,6 +66,9 @@ let imageDrawHeight = 0; // The height of the background image on screen.
 // Tracks whether the user is currently drawing.
 // "true" means the user is drawing, "false" means they are not.
 let isTracing = false; // Is the user currently drawing? (starts as not drawing).
+let isTouching = false; // Is the user currently drawing with a touch?
+let inputX = 0; // The current X position for mouse or touch input.
+let inputY = 0; // The current Y position for mouse or touch input.
 
 // The last mouse positions used to make a line.
 // These remember where the cursor was so we can draw a line from point to point.
@@ -310,10 +313,10 @@ function draw() {
   // If true, draw a new line segment.
   // A "conditional" is an "if" statement that checks if something is true or false.
   // Also stop extending the line while the cursor has moved over the interface panel.
-  if (isTracing && mouseIsPressed && !isPointOverInterface(mouseX, mouseY)) {
+  if (isTracing && (mouseIsPressed || isTouching) && !isPointOverInterface(inputX, inputY)) {
     // Get the color from any drawable (stem/flower) at the mouse position.
     // If nothing is drawn there, sample from the background image.
-    const sampledColor = getColorAtPosition(mouseX, mouseY);
+    const sampledColor = getColorAtPosition(inputX, inputY);
 
     // Flip the color so it's the opposite (light becomes dark, dark becomes light).
     // This makes the drawn line stand out against the background.
@@ -327,16 +330,16 @@ function draw() {
 
     // Draw a line from where the mouse was to where it is now.
     // This creates smooth curves as the user drags the mouse.
-    drawingLayer.line(previousX, previousY, mouseX, mouseY);
+    drawingLayer.line(previousX, previousY, inputX, inputY);
 
     // Remember the current mouse position for the next line segment.
     // Next frame, the line will start from here.
-    previousX = mouseX; // Save the current X position.
-    previousY = mouseY; // Save the current Y position.
-    lastTraceX = mouseX; // Also save it as the last traced position.
-    lastTraceY = mouseY; // This is used to place the flower when the user stops drawing.
+    previousX = inputX; // Save the current X position.
+    previousY = inputY; // Save the current Y position.
+    lastTraceX = inputX; // Also save it as the last traced position.
+    lastTraceY = inputY; // This is used to place the flower when the user stops drawing.
     lastTraceColor = invertedSampledColor; // Save the color to use for the flower later.
-    currentTracePoints.push({ x: mouseX, y: mouseY });
+    currentTracePoints.push({ x: inputX, y: inputY });
   }
 }
 
@@ -582,6 +585,9 @@ function mousePressed() {
     return;
   }
 
+  inputX = mouseX;
+  inputY = mouseY;
+
   // The user clicked on the drawing area, so start drawing mode.
   isTracing = true; // Set to true to indicate we're drawing.
 
@@ -597,6 +603,49 @@ function mousePressed() {
   // Sample the color from the background image at this position.
   // Invert it so the line will stand out.
   lastTraceColor = invertColor(getImageColor(mouseX, mouseY));
+}
+
+function touchStarted() {
+  const firstTouch = touches[0];
+
+  if (!firstTouch || isPointOverInterface(firstTouch.x, firstTouch.y)) {
+    return false;
+  }
+
+  isTouching = true;
+  inputX = firstTouch.x;
+  inputY = firstTouch.y;
+  isTracing = true;
+  previousX = inputX;
+  previousY = inputY;
+  stemStartX = inputX;
+  stemStartY = inputY;
+  lastTraceX = inputX;
+  lastTraceY = inputY;
+  currentTracePoints = [{ x: inputX, y: inputY }];
+  lastTraceColor = invertColor(getImageColor(inputX, inputY));
+
+  return false;
+}
+
+function touchMoved() {
+  const firstTouch = touches[0];
+
+  if (!firstTouch || !isTouching) {
+    return false;
+  }
+
+  inputX = firstTouch.x;
+  inputY = firstTouch.y;
+
+  return false;
+}
+
+function touchEnded() {
+  isTouching = false;
+  mouseReleased();
+
+  return false;
 }
 
 // This function runs when the user releases (lets go of) the mouse button.
