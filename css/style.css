@@ -371,38 +371,39 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   .mobile-actions {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
-    min-height: 44px;
+    gap: 4px;
+    min-height: 32px;
   }
 
   .section-header {
-    min-height: 44px;
-    margin-bottom: 8px;
-    padding-top: 6px;
+    min-height: 32px;
+    margin-bottom: 4px;
+    padding-top: 2px;
   }
 
   .ctrl-row {
-    min-height: 44px;
-    margin-bottom: 4px;
+    min-height: 32px;
+    gap: 4px;
+    margin-bottom: 2px;
   }
 
   .btn-outline {
-    min-height: 44px;
-    padding: 6px 12px;
+    min-height: 32px;
+    padding: 4px 8px;
   }
 
   .btn-icon {
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
   }
 
   .toggle-lbl {
-    padding: 10px 6px;
+    padding: 4px 2px;
   }
 
   input[type="range"].flower-size-slider,
   input[type="range"].stroke-weight-slider {
-    height: 44px;
+    height: 32px;
   }
 
   #s-download .ctrl-row {
