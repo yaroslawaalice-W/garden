@@ -375,14 +375,6 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
     min-height: 26px;
   }
 
-  .mobile-action {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    white-space: nowrap;
-  }
-
   .section-header {
     min-height: 26px;
     margin-bottom: 2px;
