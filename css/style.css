@@ -27,6 +27,7 @@ body {
 /* Remove inline spacing behavior from canvas elements. */
 canvas {
   display: block;
+  touch-action: none;
 }
 
 /* Body text and interface look. */
@@ -49,6 +50,7 @@ body {
   border: 0.1px solid #808080;
   padding: 8px 14px;
   z-index: 10;
+  touch-action: manipulation;
 }
 
 /* Each collapsible group of controls (Canvas, Flowers, ...). */
@@ -73,6 +75,7 @@ body {
   padding: 10px 0 0;
   margin-bottom: 16px;
   cursor: pointer;
+  touch-action: manipulation;
   font-weight: bold;
   font-size: 16px;
 }
@@ -155,6 +158,7 @@ body {
   color: #ffffff;
   font-family: 'IBM Plex Mono', monospace;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .btn-icon {
@@ -168,6 +172,7 @@ body {
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .btn-icon:hover {
@@ -328,4 +333,54 @@ input[type="range"].stroke-weight-slider::-moz-range-thumb {
   border: 0;
   background: #ffffff;
   cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  #canvas-wrapper {
+    right: 0;
+  }
+
+  #interface {
+    top: auto;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    width: auto;
+    max-height: 48%;
+    padding: 6px 12px;
+  }
+
+  .section-header {
+    min-height: 44px;
+    margin-bottom: 8px;
+    padding-top: 6px;
+  }
+
+  .ctrl-row {
+    min-height: 44px;
+    margin-bottom: 4px;
+  }
+
+  .btn-outline {
+    min-height: 44px;
+    padding: 6px 12px;
+  }
+
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .toggle-lbl {
+    padding: 10px 6px;
+  }
+
+  input[type="range"].flower-size-slider,
+  input[type="range"].stroke-weight-slider {
+    height: 44px;
+  }
+
+  #s-download .ctrl-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

@@ -22,6 +22,7 @@ class Interface {
   // Attaches all event listeners to the HTML controls.
   init() {
     this._initCollapsible();
+    this._closeSectionsOnMobile();
     this._initClearButton();
     this._initExportButtons();
     this._initTextureToggle();
@@ -42,6 +43,19 @@ class Interface {
         body.classList.toggle('hidden', isOpen);   // Hide if open, show if hidden
         arrow.classList.toggle('open', !isOpen);   // Rotate the arrow icon accordingly
       });
+    });
+  }
+
+  _closeSectionsOnMobile() {
+    if (!window.matchMedia('(max-width: 700px)').matches) {
+      return;
+    }
+
+    document.querySelectorAll('.section').forEach(function (section) {
+      var body = section.querySelector('.section-body');
+      var arrow = section.querySelector('.arrow');
+      body.classList.add('hidden');
+      arrow.classList.remove('open');
     });
   }
 
